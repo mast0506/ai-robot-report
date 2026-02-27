@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AI与机器人资讯</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { font-size: 16px; }
+        body { 
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif; 
+            background: #0f172a; 
+            color: #e2e8f0; 
+            line-height: 1.6; 
+            -webkit-font-smoothing: antialiased;
+            -webkit-text-size-adjust: 100%;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto; 
+            padding: 15px; 
+        }
+        header { 
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 50%, #d946ef 100%); 
+            color: white; 
+            padding: 30px 15px; 
+            text-align: center; 
+            margin-bottom: 20px; 
+            border-radius: 12px; 
+            box-shadow: 0 4px 20px rgba(99, 102, 241, 0.3); 
+        }
+        header h1 { 
+            font-size: 1.8rem; 
+            margin-bottom: 8px; 
+        }
+        header .subtitle { 
+            opacity: 0.9; 
+            font-size: 0.95rem; 
+        }
+        header .date { 
+            margin-top: 12px; 
+            font-size: 0.85rem; 
+            opacity: 0.8; 
+        }
+        .section { 
+            background: #1e293b; 
+            border-radius: 12px; 
+            padding: 20px 15px; 
+            margin-bottom: 15px; 
+            box-shadow: 0 2px 12px rgba(0,0,0,0.3); 
+        }
+        .section h2 { 
+            color: #a78bfa; 
+            font-size: 1.2rem; 
+            margin-bottom: 15px; 
+            padding-bottom: 8px; 
+            border-bottom: 2px solid #6366f1; 
+            display: flex; 
+            align-items: center; 
+            gap: 8px; 
+        }
+        .section h2 .icon { 
+            font-size: 1.1rem; 
+        }
+        .news-item { 
+            padding: 15px 0; 
+            border-bottom: 1px solid #334155; 
+        }
+        .news-item:last-child { 
+            border-bottom: none; 
+        }
+        .news-item .title { 
+            font-weight: 600; 
+            color: #f1f5f9; 
+            margin-bottom: 6px;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+        .news-item .meta { 
+            font-size: 0.75rem; 
+            color: #94a3b8;
+            margin-bottom: 8px;
+        }
+        .news-item .summary { 
+            font-size: 0.85rem; 
+            color: #cbd5e1; 
+            line-height: 1.6;
+        }
+        .tag { 
+            display: inline-block; 
+            padding: 2px 8px; 
+            border-radius: 4px; 
+            font-size: 0.7rem; 
+            margin-right: 5px;
+            font-weight: 500;
+        }
+        .tag.ai { background: #6366f1; color: white; }
+        .tag.robot { background: #06b6d4; color: white; }
+        .tag.china { background: #ef4444; color: white; }
+        .tag.us { background: #3b82f6; color: white; }
+        .tag.sg { background: #10b981; color: white; }
+        .tag.invest { background: #f59e0b; color: white; }
+        .tag.tech { background: #8b5cf6; color: white; }
+        .hot-topics {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-top: 10px;
+        }
+        .topic-tag {
+            background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%);
+            color: white;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+        }
+        .stock-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 10px;
+        }
+        .stock-card {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 12px;
+            border: 1px solid #334155;
+        }
+        .stock-card .stock-name {
+            font-weight: 600;
+            color: #f1f5f9;
+            font-size: 0.95rem;
+        }
+        .stock-card .stock-code {
+            font-size: 0.75rem;
+            color: #94a3b8;
+        }
+        .stock-card .stock-price {
+            font-size: 1.3rem;
+            font-weight: bold;
+            margin: 8px 0;
+        }
+        .stock-card .stock-change {
+            font-size: 0.8rem;
+        }
+        .analysis-box { 
+            background: linear-gradient(135deg, #1e1b4b 0%, #312e81 100%); 
+            color: white; 
+            border-radius: 12px; 
+            padding: 20px 15px; 
+            border: 1px solid #6366f1;
+        }
+        .analysis-box h3 { 
+            margin-bottom: 12px; 
+            font-size: 1.1rem;
+            color: #a78bfa;
+        }
+        .analysis-box ul { 
+            list-style: none; 
+            font-size: 0.9rem;
+        }
+        .analysis-box li { 
+            padding: 6px 0; 
+            padding-left: 16px; 
+            position: relative;
+            line-height: 1.5;
+        }
+        .analysis-box li:before { 
+            content: "▸"; 
+            position: absolute; 
+            left: 0; 
+            color: #6366f1; 
+        }
+        .trend-card {
+            background: #0f172a;
+            border-radius: 8px;
+            padding: 12px;
+            margin-bottom: 10px;
+            border-left: 3px solid #6366f1;
+        }
+        .trend-card h4 {
+            color: #a78bfa;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+        .trend-card p {
+            color: #cbd5e1;
+            font-size: 0.85rem;
+        }
+        footer { 
+            text-align: center; 
+            padding: 20px 15px; 
+            color: #64748b; 
+            font-size: 0.8rem;
+            line-height: 1.6;
+        }
+        @media (min-width: 768px) {
+            .container { padding: 20px; }
+            header { padding: 40px 20px; }
+            header h1 { font-size: 2.2rem; }
+            .section { padding: 25px 20px; }
+            .section h2 { font-size: 1.4rem; }
+            .stock-grid { grid-template-columns: repeat(2, 1fr); }
+            footer { font-size: 0.9rem; }
+        }
+        @media (min-width: 1024px) {
+            .stock-grid { grid-template-columns: repeat(3, 1fr); }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 AI与机器人资讯</h1>
+            <div class="subtitle">AI & Robotics Intelligence Report</div>
+            <div class="date">2026年2月27日 星期五 | 日报</div>
+        </header>
+
+        <!-- 今日热点 -->
+        <div class="section">
+            <h2><span class="icon">🔥</span>今日热点</h2>
+            <div class="hot-topics">
+                <span class="topic-tag">大模型</span>
+                <span class="topic-tag">人形机器人</span>
+                <span class="topic-tag">自动驾驶</span>
+                <span class="topic-tag">AI芯片</span>
+                <span class="topic-tag">具身智能</span>
+            </div>
+        </div>
+
+        <!-- 硅谷前沿 -->
+        <div class="section">
+            <h2><span class="icon">🇺🇸</span>硅谷前沿</h2>
+            <div class="news-item">
+                <div class="title">
+                    <span class="tag us">美国</span>
+                    <span class="tag ai">AI</span>
+                    示例新闻标题
+                </div>
+                <div class="meta">TechCrunch | 2026-02-27 | OpenAI/Google/Meta</div>
+                <div class="summary">新闻摘要内容...</div>
+            </div>
+        </div>
+
+        <!-- 中国动态 -->
+        <div class="section">
+            <h2><span class="icon">🇨🇳</span>中国动态</h2>
+            <div class="news-item">
+                <div class="title">
+                    <span class="tag china">中国</span>
+                    <span class="tag robot">机器人</span>
+                    示例新闻标题
+                </div>
+                <div class="meta">36氪/机器之心 | 2026-02-27 | 宇树/智元/优必选</div>
+                <div class="summary">新闻摘要内容...</div>
+            </div>
+        </div>
+
+        <!-- 新加坡视角 -->
+        <div class="section">
+            <h2><span class="icon">🇸🇬</span>新加坡视角</h2>
+            <div class="news-item">
+                <div class="title">
+                    <span class="tag sg">新加坡</span>
+                    <span class="tag tech">科技</span>
+                    示例新闻标题
+                </div>
+                <div class="meta">Tech in Asia | 2026-02-27</div>
+                <div class="summary">新闻摘要内容...</div>
+            </div>
+        </div>
+
+        <!-- 技术突破 -->
+        <div class="section">
+            <h2><span class="icon">💡</span>技术突破</h2>
+            <div class="trend-card">
+                <h4>大模型</h4>
+                <p>最新技术进展描述...</p>
+            </div>
+            <div class="trend-card">
+                <h4>机器人</h4>
+                <p>最新技术进展描述...</p>
+            </div>
+            <div class="trend-card">
+                <h4>AI芯片</h4>
+                <p>最新技术进展描述...</p>
+            </div>
+        </div>
+
+        <!-- 投资动态 -->
+        <div class="section">
+            <h2><span class="icon">💰</span>投资动态</h2>
+            <div class="news-item">
+                <div class="title">
+                    <span class="tag invest">投资</span>
+                    融资/并购消息
+                </div>
+                <div class="meta">Crunchbase | 2026-02-27</div>
+                <div class="summary">投资详情...</div>
+            </div>
+        </div>
+
+        <!-- 相关股价 -->
+        <div class="section">
+            <h2><span class="icon">📈</span>相关公司股价</h2>
+            <div class="stock-grid">
+                <div class="stock-card">
+                    <div class="stock-name">NVIDIA</div>
+                    <div class="stock-code">NVDA</div>
+                    <div class="stock-price" style="color: #4ade80;">$xxx</div>
+                    <div class="stock-change" style="color: #4ade80;">+x.xx%</div>
+                </div>
+                <div class="stock-card">
+                    <div class="stock-name">特斯拉</div>
+                    <div class="stock-code">TSLA</div>
+                    <div class="stock-price" style="color: #4ade80;">$xxx</div>
+                    <div class="stock-change" style="color: #4ade80;">+x.xx%</div>
+                </div>
+                <div class="stock-card">
+                    <div class="stock-name">优必选</div>
+                    <div class="stock-code">09880.HK</div>
+                    <div class="stock-price" style="color: #4ade80;">HK$xxx</div>
+                    <div class="stock-change" style="color: #4ade80;">+x.xx%</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 投资分析 -->
+        <div class="section analysis-box">
+            <h3>🔍 投资分析</h3>
+            <ul>
+                <li><strong>AI大模型：</strong>分析内容...</li>
+                <li><strong>人形机器人：</strong>分析内容...</li>
+                <li><strong>AI芯片：</strong>分析内容...</li>
+                <li><strong>投资机会：</strong>关注标的...</li>
+            </ul>
+        </div>
+
+        <footer>
+            <p>信息来源：TechCrunch、The Information、机器之心、36氪、Tech in Asia、VentureBeat</p>
+            <p>更新时间：周一至周五7:30日报 | 周六7:30周报 | 仅供参考，不构成投资建议</p>
+        </footer>
+    </div>
+</body>
+</html>
